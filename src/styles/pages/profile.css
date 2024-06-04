@@ -11,12 +11,11 @@
 }
 
 .profile-container {
-  /* margin: 15px auto; */
-  margin: 30px;
   background-color: var(--dropdownColor);
   border: 1px solid var(--dropdownColor);
   border-radius: 10px;
-  margin-top: 120px;
+  height: 100vh;
+  padding-top: 64px;
 }
 
 .date {
@@ -32,25 +31,18 @@
 
 .profile-header {
   display: flex;
-  /* flex-direction: row; */
-  width: 95%;
-  /* justify-content: space-between; */
   align-items: start;
   height: 100%;
   background-color: var(--lightBGColor);
-  margin-bottom: 5px;
-  margin: 20px;
-  /* border: 1px solid white; */
-  border-radius: 10px;
   padding: 1rem;
 }
 
 .leftsection {
   text-align: center;
-  margin: 40px;
-  width: 15%;
+  margin: 0px 40px;
+  width: 20%;
   border-right: 1px solid var(--borderColor);
-  height: 70vh;
+  height: 100%;
 }
 
 .custom-tabs {
@@ -122,9 +114,9 @@
 }
 
 .profileBorder {
-  margin: 5px auto;
   border: 1px solid var(--borderColor);
   border-radius: 10px;
+  max-width: 80%;
 }
 
 .avatar-section {
@@ -318,6 +310,8 @@
   display: flex;
   align-items: flex-start;
   margin-top: 20px;
+  overflow-y: scroll;
+  max-height: 80vh;
 }
 
 .rightsection .review-container .reviewCOl {
@@ -349,6 +343,8 @@
   gap: 16px;
   border-radius: 10px;
   padding: 0.5rem;
+  overflow-y: scroll;
+  max-height: 80vh;
 }
 
 .video-item {
@@ -357,6 +353,7 @@
 
 .video-item .videoCSS {
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .video-info {
@@ -425,6 +422,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  overflow-y: scroll;
+  max-height: 80vh;
 }
 
 .images-container img {

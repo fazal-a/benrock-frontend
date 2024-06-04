@@ -37,6 +37,7 @@ import { deleteProfilePicture, getProfile, updateProfile, uploadProfile } from '
 import { getReviews } from '../services/Reviews'
 import LocationModal from '../components/Location Modal/LocationModal'
 import moment from 'moment'
+import { hover } from '@testing-library/user-event/dist/hover'
 
 const ProfilePreviewModal = ({ visible, imageUrl, onClose }) => {
   return (
@@ -350,9 +351,11 @@ const Profile = () => {
         }
         if (combinedFiles.length > 0) {
           const data = await uploadAttachments(combinedFiles, type, setUploadLoading)
-          console.log('data :', data)
+          console.log('data :', data);
+          combinedFiles = [];
         } else {
           console.log('No files to upload.')
+          combinedFiles = [];
         }
       } catch (error) {
         console.error('Error updating profile:', error)
@@ -487,10 +490,6 @@ const Profile = () => {
   return (
     <Layout active={'profile'}>
       <div className='profile-container'>
-        <span className='span'>
-          <MdPersonOutline size={20} style={{ marginRight: '5px' }} />
-          <h3>My Profile </h3>
-        </span>
         <div className='profile-header'>
           <div className='leftsection'>
             <div className='custom-tabs'>
@@ -534,8 +533,6 @@ const Profile = () => {
           <div className='rightsection'>
             {activeTab === 'profile' && (
               <>
-                <span></span>
-
                 <div className='profileBorder'>
                   <div className='avatar-section'>
                     <div className='address'>
@@ -568,6 +565,7 @@ const Profile = () => {
                               outline: '1px solid gray',
                               objectFit: 'contain',
                               marginTop: '30px',
+                              backgroundColor: 'white'
                             }}
                           />
 
@@ -945,7 +943,7 @@ const Profile = () => {
                                 className='video-item'
                                 onClick={() => handleOpenVideoModal(item)}
                               >
-                                <video controls width='100%' height='300px' className='videoCSS'>
+                                <video controls width='100%' height='300px' className='videoCSS'autoPlay muted loop>
                                   <source src={`${imageBaseUrl}/${item.path}`} />
                                   Your browser does not support the video tag.
                                 </video>
