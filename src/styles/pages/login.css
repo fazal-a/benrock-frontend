@@ -1,0 +1,142 @@
+.login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background-image: url('../../assets/social.webp'); */
+  background: radial-gradient(50% 50% at 50% 50%, rgb(18, 38, 71) 0%, rgb(9, 14, 35) 100%);
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 20px;
+}
+.login .login-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login .signin {
+  width: 380px;
+  height: 380px;
+  margin-top: 40px;
+}
+
+.login .forget-password {
+  width: 380px;
+  height: 300px;
+  margin-top: 40px;
+}
+
+.login .signin .login-form {
+  height: auto;
+  box-shadow: var(--boxShadow);
+  background-color: white;
+  padding: 36px 32px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo-image {
+  /* display: none; */
+  width: 100px !important;
+  height: auto !important;
+  align-self: center;
+}
+
+.login .signin .login-form h2 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  text-align: center;
+  color: var(--newPrimary);
+}
+
+.login .signin .login-form > p {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #9fa2b4;
+}
+
+.login .signin .login-form .passLabel-forgotPass {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login .signin .login-form label {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 16px;
+  color: #676767;
+}
+
+.pointer {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.login .signin .login-form button {
+  width: 100%;
+  height: 50px;
+  border: none;
+  margin: 0 !important;
+  font-style: normal;
+  background-color: var(--newPrimary);
+  font-weight: 400 !important;
+  font-size: 18px;
+  line-height: 18px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(55, 81, 255, 0.24);
+  letter-spacing: 0;
+}
+
+.login .signin .login-form div .ant-form-item {
+  margin-bottom: 0px !important;
+}
+
+.login .signin .login-form .ant-form-item {
+  margin-bottom: 0px !important;
+}
+
+.login .signin .login-form input {
+  height: 42px !important;
+  margin: 0px !important;
+  border-radius: 5px;
+}
+.login .signin .login-form .ant-input-password {
+  padding: 0px 11px !important;
+  border-radius: 5px;
+}
+
+@media (max-width: 770px) {
+  .signin,
+  .signin-forget .forget-inner,
+  .signup {
+    width: 60%;
+  }
+}
+@media (max-width: 550px) {
+  .signin,
+  .signup,
+  .signin-forget .forget-inner {
+    width: 90%;
+  }
+  .login .signin {
+    width: 100%;
+  }
+}

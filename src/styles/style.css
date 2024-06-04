@@ -1,0 +1,30 @@
+/* Third Party CSS */
+
+/* Theme CSS */
+@import './_general.css';
+@import './_antd.css';
+
+/* Layout CSS */
+@import './layout/verticalLayout.css';
+@import './layout/MainMenu.css';
+@import './layout/layout.css';
+@import './layout/mobileLayout.css';
+
+/* Component CSS */
+@import './components/table.css';
+@import './components/Chat/ChatApp.css';
+@import './components/UploadModal/UploadModal.css';
+@import './components/LocationModal/LocationModal.css';
+
+/* Page CSS */
+@import './pages/login.css';
+@import './pages/signup.css';
+@import './pages/dashboard.css';
+@import './pages/profile.css';
+@import './pages/home.css';
+@import './pages//VideoUpload.css';
+@import './pages/VideoRecorder.css';
+@import './pages/PhotoCapture.css';
+@import './pages/Feed.css';
+@import './pages/EmailVerification.css';
+@import './pages/ForgetPassword.css';

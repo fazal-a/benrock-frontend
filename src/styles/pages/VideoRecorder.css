@@ -1,0 +1,80 @@
+.video-recorder {
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-recorder .video-webcam {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: relative;
+}
+
+.video-recorder .videoBTN {
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Center the button horizontally */
+  transform: translateX(-50%); /* Move the button back by half of its own width */
+}
+
+.video-recorder button {
+  width: 30px;
+  height: 30px;
+  font-size: 0;
+  background-color: red;
+  border: 0;
+  border-radius: 35px;
+  margin: 18px;
+  outline: none;
+  cursor: pointer;
+}
+
+.video-recorder .notRec {
+  background-color: darkred;
+}
+
+.video-recorder .Rec {
+  animation-name: pulse;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.video-recorder .downloadBTN {
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 1%;
+  cursor: pointer;
+}
+
+.video-recorder .cameraRotateBTN {
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  right: 1%;
+  cursor: pointer;
+}
+
+.video-recorder .cameraBackBTN {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 1%;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0px 0px 5px 0px rgba(173, 0, 0, 0.3);
+  }
+
+  65% {
+    box-shadow: 0px 0px 5px 13px rgba(173, 0, 0, 0.3);
+  }
+
+  90% {
+    box-shadow: 0px 0px 5px 13px rgba(173, 0, 0, 0);
+  }
+}

@@ -1,0 +1,258 @@
+.Feed {
+  margin: 30px;
+}
+
+.Feed .chatBTNS {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  background-color: var(--dropdownColor);
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.Feed .chatBTNS .tablinks {
+  color: var(--textColor);
+  flex: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.Feed .chatBTNS .active {
+  color: var(--primaryColor) !important;
+  background-color: var(--hoverBTNColor) !important;
+  border-radius: 5px !important;
+}
+
+.PROFILE_DIVIDER .ant-divider-horizontal {
+  background-color: var(--textColor) !important;
+}
+
+.Feed .leftFeedSection .card {
+  /* border: 1px solid var(--gray300); */
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: var(--cardColor);
+  margin: 10px 0px;
+}
+
+.Feed .leftFeedSection .card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Feed .leftFeedSection .card .card-header .name-date .cardDate {
+  color: var(--gray300);
+  font-size: 12px;
+}
+
+.Feed .leftFeedSection .card .card-header .name-date .userName {
+  color: var(--textColor);
+}
+
+.timeaGo {
+  color: var(--textColor);
+}
+
+.Feed .leftFeedSection .single-card .card-content {
+  display: block !important;
+}
+
+.Feed .leftFeedSection .card .card-content {
+  margin: 1rem 0;
+  /* display: grid;
+  grid-template-columns: repeat(3, 1fr); */
+  /* flex: 1 0 0; */
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-basis: auto;
+  /* flex-wrap: wrap; */
+}
+
+.Feed .leftFeedSection .noFeeds {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400px;
+}
+
+.Feed .leftFeedSection .noFeeds > p {
+  color: var(--gray300);
+  font-size: 20px;
+}
+
+.Feed .leftFeedSection .card .card-content .feedVideos {
+  min-width: 150px;
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  cursor: pointer;
+  object-fit: fill;
+  flex: 0 0 1;
+  flex-wrap: nowrap;
+}
+
+.Feed .leftFeedSection .card .card-content .timeaGo {
+  color: var(--textColor);
+  padding-top: 5px;
+}
+
+.Feed .leftFeedSection .card .card-content img {
+  /* flex-grow: 1; */
+  width: 100%;
+  height: 300px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+
+/* Feed's Right section */
+.Feed .rightFeedSection .profileCard {
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: var(--cardColor);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 10px 0;
+}
+
+.Feed .rightFeedSection .profileName {
+  text-align: center;
+  color: var(--textColor);
+}
+
+.Feed .rightFeedSection .profileEmail {
+  text-align: center;
+  padding-top: 3px;
+}
+
+.Feed .rightFeedSection .profileCard .profileEmail {
+  color: var(--gray300);
+  font-size: 12px;
+}
+
+/* Profile Button */
+.Feed .rightFeedSection .profileCard button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 500px;
+  overflow: hidden;
+  background: var(--primary);
+  color: var(--blackText);
+}
+
+.Feed .rightFeedSection .profileCard button span {
+  position: relative;
+  z-index: 10;
+  transition: color 0.4s;
+}
+
+.Feed .rightFeedSection .profileCard button:hover span {
+  color: var(--textColor);
+}
+
+.Feed .rightFeedSection .profileCard button::before,
+.Feed .rightFeedSection .profileCard button::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.Feed .rightFeedSection .profileCard button::before {
+  content: '';
+  background: var(--textColor);
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+
+.Feed .rightFeedSection .profileCard button:hover::before {
+  transform: translate3d(100%, 0, 0);
+}
+
+.Feed .rightFeedSection .feedChat {
+  border-radius: 10px;
+  padding: 1rem;
+  border: 0.3px solid rgb(141, 179, 240);
+}
+
+.Feed .rightFeedSection .feedChat .chatContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  color: var(--textColor);
+}
+
+.Feed .rightFeedSection .feedChat h2 {
+  color: var(--textColor);
+  margin: 1rem 0;
+}
+
+.Feed .rightFeedSection .feedChat .chatContent:hover {
+  background-color: var(--dropdownColor);
+  border-radius: 10px;
+}
+
+.Feed .rightFeedSection .feedChat .chatContent .chatUser {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  /* .Feed .leftFeedSection .card .card-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  } */
+  .Feed {
+    margin: 10px;
+  }
+  .Feed .leftFeedSection .card .card-content {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    flex-basis: auto;
+  }
+
+  .Feed .leftFeedSection .card {
+    padding: 2rem;
+  }
+
+  .rightFeedSection {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .Feed .leftFeedSection .card .card-content {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    flex-basis: auto;
+  }
+}

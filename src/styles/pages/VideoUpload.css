@@ -1,0 +1,43 @@
+/* styles.css */
+
+/* Container styles */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Left side: Upload container */
+.upload-container {
+  margin-bottom: 20px;
+}
+
+/* Right side: Form container */
+.form-container {
+  border: 1px solid #e8e8e8;
+  padding: 16px;
+}
+
+/* Uploaded video styles */
+.uploaded-video-container {
+  margin-top: 20px;
+}
+
+/* Responsive video styles */
+.video-card video {
+  width: 100%;
+  height: auto;
+}
+.video-upload-form-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add more styling as needed */

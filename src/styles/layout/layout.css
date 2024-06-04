@@ -1,0 +1,41 @@
+.main-content {
+  background-color: var(--lightBGColor);
+  min-height: 100vh;
+  /* margin-top: 50px; */
+  /* padding-top: 65px; */
+}
+
+.ant-layout-header {
+  background-color: var(--lightBGColor) !important;
+  border-bottom: 1px solid var(--borderLight);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 9999;
+  position: fixed;
+  padding: 0 30px;
+}
+
+.v-layout {
+  display: block;
+}
+
+.m-layout {
+  display: none;
+}
+
+.ant-drawer-body {
+  background-color: var(--lightBGColor) !important;
+}
+
+@media (max-width: 800px) {
+  .v-layout {
+    display: none;
+  }
+
+  .m-layout {
+    display: block;
+    min-height: 100vh;
+  }
+}
