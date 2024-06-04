@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Button, Upload, message } from 'antd'
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons'
 const { Dragger } = Upload
@@ -80,6 +80,13 @@ function UploadModal({
   const handleCancel = () => {
     setFileList([])
   }
+
+  useEffect(() => {
+    return()=>{
+      setFileList([]);
+      setFiles([]);
+    }
+  }, [])
 
   return (
     <Modal
