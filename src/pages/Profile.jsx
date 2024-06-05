@@ -943,7 +943,7 @@ const Profile = () => {
                                 className='video-item'
                                 onClick={() => handleOpenVideoModal(item)}
                               >
-                                <video controls width='100%' height='300px' className='videoCSS'autoPlay muted loop>
+                                <video controls width='100%' height='300px' className='videoCSS'muted>
                                   <source src={`${imageBaseUrl}/${item.path}`} />
                                   Your browser does not support the video tag.
                                 </video>
