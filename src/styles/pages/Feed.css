@@ -1,11 +1,12 @@
 .Feed {
-  margin: 30px;
+  margin-left: 80px;
+  margin-top: 74px;
 }
 
 .Feed .chatBTNS {
+  width: 40vw;
   display: flex;
   align-items: center;
-  width: 30%;
   background-color: var(--dropdownColor);
   padding: 3px;
   border-radius: 5px;
@@ -32,11 +33,11 @@
 }
 
 .Feed .leftFeedSection .card {
-  /* border: 1px solid var(--gray300); */
   border-radius: 10px;
   padding: 1rem;
   background-color: var(--cardColor);
   margin: 10px 0px;
+  max-width: 40vw;
 }
 
 .Feed .leftFeedSection .card .card-header {
@@ -64,14 +65,12 @@
 
 .Feed .leftFeedSection .card .card-content {
   margin: 1rem 0;
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr); */
-  /* flex: 1 0 0; */
   display: flex;
   flex-direction: row;
+  justify-content: center;
   gap: 10px;
   flex-basis: auto;
-  /* flex-wrap: wrap; */
+  background-color: #121721;
 }
 
 .Feed .leftFeedSection .noFeeds {
@@ -89,14 +88,14 @@
 }
 
 .Feed .leftFeedSection .card .card-content .feedVideos {
-  min-width: 150px;
-  width: 100%;
-  height: 300px;
-  border-radius: 10px;
+  width: auto;
+  height: 100%;
   cursor: pointer;
   object-fit: fill;
   flex: 0 0 1;
   flex-wrap: nowrap;
+  max-height: 70vh;
+  max-width: -webkit-fill-available;
 }
 
 .Feed .leftFeedSection .card .card-content .timeaGo {
@@ -106,10 +105,14 @@
 
 .Feed .leftFeedSection .card .card-content img {
   /* flex-grow: 1; */
-  width: 100%;
-  height: 300px;
+  width: auto;
+  height: 100%;
+  cursor: pointer;
   object-fit: fill;
-  border-radius: 10px;
+  flex: 0 0 1;
+  flex-wrap: nowrap;
+  max-height: 70vh;
+  max-width: -webkit-fill-available;
 }
 
 /* Feed's Right section */
