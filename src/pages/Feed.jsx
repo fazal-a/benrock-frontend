@@ -25,6 +25,14 @@ const Feed = () => {
   const [likedAttachments, setLikedAttachments] = useState([]);
 
   useEffect(() => {
+    if (activeTab === 'Recent') {
+      fetchRecentPosts(1, true);
+    } else {
+      fetchPopularPosts(1, true);
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
     setLikedAttachments(user?.user?.likes || []);
     return()=>{
       setLikedAttachments([]);
@@ -40,7 +48,9 @@ const Feed = () => {
   const loader = useRef(null)
 
   useEffect(() => {
-    fetchRecentPosts(page);
+    if (activeTab === 'Recent' && page > 1) {
+      fetchRecentPosts(page);
+    }
     return()=>{
       setPosts([]);
       setPage(1);
@@ -69,8 +79,13 @@ const Feed = () => {
     }
   }, [loader, hasMore])
 
-  const fetchRecentPosts = async () => {
-    setLoading(true)
+  const fetchRecentPosts = async (page, reset = false) => {
+    if (reset) {
+      setPosts([]);
+      setPage(1);
+      setHasMore(true);
+    }
+    setLoading(true);
     try {
       const response = await privateAPI.get(
         `/attachment/getRecentAttachments?page=${page}&limit=3`,
@@ -91,7 +106,9 @@ const Feed = () => {
   const popularPostsLoader = useRef(null)
 
   useEffect(() => {
-    fetchPopularPosts(popularPostsPage)
+    if (activeTab === 'Popular' && popularPostsPage > 1) {
+      fetchPopularPosts(popularPostsPage);
+    }
     return()=>{
       setPopularPosts([]);
       setPopularPostsPage(1);
@@ -120,8 +137,13 @@ const Feed = () => {
     }
   }, [popularPostsLoader, hasMorePopularPosts])
 
-  const fetchPopularPosts = async () => {
-    setLoading(true)
+  const fetchPopularPosts = async (page, reset = false) => {
+    if (reset) {
+      setPopularPosts([]);
+      setPopularPostsPage(1);
+      setHasMorePopularPosts(true);
+    }
+    setLoading(true);
     try {
       const response = await privateAPI.get(
         `/attachment/getPopularAttachments?page=${popularPostsPage}&limit=3`,
