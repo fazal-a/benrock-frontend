@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FaVideo, FaImages, FaStar, FaUser } from 'react-icons/fa'
 
 import { useLocation } from 'react-router-dom'
-import defaultProfilePicUrl from '../assets/logo.png'
+import defaultProfilePicUrl from '../assets/logoWhiteBG.png';
 import UploadModal from '../components/Upload Modal/UploadModal'
 import { imageBaseUrl } from '../config/constants'
 import { fetchAddress } from '../constants/getAddress'

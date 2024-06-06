@@ -1,7 +1,7 @@
 import { notification } from 'antd'
 import { publicAPI, attachToken } from '../../config/constants'
 import store from '../store'
-import { LOGIN } from '../types/authTypes'
+import { LOGIN, TOGGLE_LIKE } from '../types/authTypes'
 
 export const authSignup = (payload, navigate) => {
   return async (dispatch) => {
@@ -151,3 +151,29 @@ export const authResetPassword = (payload, navigate) => {
     }
   }
 }
+
+
+export const toggleLikeAction = (attachmentId) => {
+  return async (dispatch, getState) => {
+    try {
+      const { user } = getState().auth;
+
+      const isLiked = user.user.likes.includes(attachmentId);
+      const updatedLikes = isLiked
+        ? user.user.likes.filter(id => id !== attachmentId)
+        : [...user.user.likes, attachmentId];
+
+      // Update the user object in Redux store
+      dispatch({
+        type: TOGGLE_LIKE,
+        payload: updatedLikes,
+      });
+    } catch (err) {
+      console.error('Error toggling like status:', err);
+      notification.error({
+        message: 'Error toggling like status',
+        duration: 3,
+      });
+    }
+  };
+};

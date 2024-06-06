@@ -7,7 +7,7 @@ import { IoChatbubblesOutline } from 'react-icons/io5'
 
 import 'leaflet.heat'
 
-import logo from '../../assets/logo.png' // Replace with the path to your logo image
+import logo from '../../assets/logoWhiteBG.png'; // Replace with the path to your logo image
 import { getALLusers } from '../../services/Reviews'
 import { imageBaseUrl } from '../../config/constants'
 

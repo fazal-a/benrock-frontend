@@ -15,7 +15,7 @@ import {
   Circle,
 } from 'react-leaflet'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import logo from '../assets/logoWhiteBG.png';
 import { imageBaseUrl } from '../config/constants'
 import Layout from '../layout/Layout'
 import { addReview, getALLusers, getReviews } from '../services/Reviews'

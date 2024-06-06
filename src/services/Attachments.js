@@ -118,3 +118,23 @@ export const addClick = async (id) => {
     })
   }
 }
+
+export const toggleLike = async (user, id) => {
+  try {
+    attachToken()
+    const res = await privateAPI.patch(`/me/toggle-like/`,
+      {
+        attachmentId: id,
+        user: user.user,
+      })
+    if (res) {
+      return res
+    }
+  } catch (err) {
+    notification.error({
+      message: err?.response?.data?.message || 'Server Error',
+      duration: 3,
+      style: { marginTop: '50px' },
+    })
+  }
+}

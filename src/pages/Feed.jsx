@@ -1,37 +1,51 @@
 /*eslint-disable*/
-import { Avatar, Col, Divider, Image, Modal, Row, Skeleton } from 'antd'
+import { Avatar, Image, Modal, Skeleton } from 'antd'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
 import { MdOutlineWbIncandescent } from 'react-icons/md'
 import { PiSlideshowBold } from 'react-icons/pi'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import logo from '../assets/logoWhiteBG.png'
 import { imageBaseUrl, privateAPI } from '../config/constants'
 import Layout from '../layout/Layout'
-import { addClick, getNearestAttachments, getRecentAttachments } from '../services/Attachments'
-import { getContacts } from '../services/chat'
-import { AiFillLike } from 'react-icons/ai'
+import { addClick, toggleLike } from '../services/Attachments'
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
+import { toggleLikeAction } from '../redux'
 
 const Feed = () => {
-  const chatSelector = useSelector((state) => state.chat)
-  // const [loading, setLoading] = useState(false)
-  const [feed, setFeed] = useState([])
-  const [popular, setPopular] = useState([])
   const user = useSelector((state) => state.auth.user)
+  const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState('Recent')
 
-  // Assuming you have a state to manage the visibility of the modal
+
   const [videoModalVisible, setVideoModalVisible] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState(null)
 
+  const [likedAttachments, setLikedAttachments] = useState([]);
+
+  useEffect(() => {
+    setLikedAttachments(user?.user?.likes || []);
+    return()=>{
+      setLikedAttachments([]);
+    }
+  }, [user]);
+
   const [loading, setLoading] = useState(false)
 
+  //states for managing and getting recent posts
   const [posts, setPosts] = useState([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const loader = useRef(null)
+
   useEffect(() => {
-    fetchRecentPosts(page)
+    fetchRecentPosts(page);
+    return()=>{
+      setPosts([]);
+      setPage(1);
+      setHasMore(true);
+    }
   }, [page])
 
   useEffect(() => {
@@ -59,7 +73,7 @@ const Feed = () => {
     setLoading(true)
     try {
       const response = await privateAPI.get(
-        `/attachment/getPaginatedAttachments?page=${page}&limit=3`,
+        `/attachment/getRecentAttachments?page=${page}&limit=3`,
       )
       const data = await response.data
       setPosts((prev) => [...prev, ...data?.data])
@@ -70,6 +84,7 @@ const Feed = () => {
     setLoading(false)
   }
 
+  //states for managing and getting popular posts
   const [popularPosts, setPopularPosts] = useState([])
   const [popularPostsPage, setPopularPostsPage] = useState(1)
   const [hasMorePopularPosts, setHasMorePopularPosts] = useState(true)
@@ -77,6 +92,11 @@ const Feed = () => {
 
   useEffect(() => {
     fetchPopularPosts(popularPostsPage)
+    return()=>{
+      setPopularPosts([]);
+      setPopularPostsPage(1);
+      setHasMorePopularPosts(true);
+    }
   }, [popularPostsPage])
 
   useEffect(() => {
@@ -115,78 +135,10 @@ const Feed = () => {
     setLoading(false)
   }
 
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(handleObserver,
-  //     {
-  //       root: null,
-  //       rootMargin: "20px",
-  //       threshold: 1.0
-  //     });
-  //   if (loader.current){
-  //     observer.observe(loader.current);
-  //   }
-  // }, []);
-
-  //
-  // const handleObserver = (entities) => {
-  //   const target = entities[0];
-  //   if (target.isIntersecting && hasMore) {
-  //     setPage((prev) => prev + 1);
-  //   }
-  // };
-  //
-  // useEffect(() => {
-  //   loadPosts();
-  // }, [page]);
-
   // Function to handle click on video thumbnail
   const handleVideoThumbnailClick = (video) => {
     setSelectedVideo(video)
     setVideoModalVisible(true)
-  }
-
-  const [activeTab, setActiveTab] = useState('Recent')
-  const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   getContacts()
-  //   getFeedData()
-  // }, [])
-
-  // useEffect(() => {
-  //   if (activeTab === 'Recent') getFeedData()
-  //   else getNearest()
-  // }, [activeTab])
-
-  // const getFeedData = async () => {
-  //   setLoading(true)
-  //   let response = await getRecentAttachments()
-  //   // console.log({ response })
-  //   if (response?.status === 200) {
-  //     setLoading(false)
-  //     setFeed(response?.data?.data)
-  //   } else {
-  //     setLoading(false)
-  //   }
-  // }
-
-  const getNearest = async () => {
-    setLoading(true)
-    let response = await getNearestAttachments()
-    if (response?.status === 200) {
-      setLoading(false)
-      setPopular(response?.data)
-    } else {
-      setLoading(false)
-    }
-  }
-
-  const handleNavigateToChat = (item) => {
-    navigate(`/chat`, {
-      state: {
-        openChatWith: item,
-      },
-    })
   }
 
   const NoFeeds = () => {
@@ -196,11 +148,9 @@ const Feed = () => {
       </div>
     )
   }
-
   const handleTabClick = (value) => {
     setActiveTab(value)
   }
-
   const onAttachmentClick = async (attachment) => {
     if (attachment?.createdBy) {
       if (localStorage.getItem('userId') !== attachment?.createdBy?._id) {
@@ -208,8 +158,21 @@ const Feed = () => {
       }
     }
   }
-
-  // components
+  const onLikeIconClick = async (post) => {
+    try {
+      if (likedAttachments.includes(post._id)) {
+        setLikedAttachments((prevState) =>
+          prevState.filter((id) => id !== post._id)
+        );
+      } else {
+        setLikedAttachments((prevState) => [...prevState, post._id]);
+      }
+      await dispatch(toggleLikeAction(post._id));
+      await toggleLike(user, post._id);  // Call the API to toggle like status
+    } catch (err) {
+      console.error('Error toggling like status:', err);
+    }
+  };
   const Card = ({ post, onClick }) => {
     if (loading) {
       return <Skeleton active avatar style={{ margin: 10 }} />
@@ -217,15 +180,15 @@ const Feed = () => {
     return (
       <div className='card'>
         <div className='card-header'>
-          <div>
+          <div className='avatar-name-section'>
             <Avatar
-              style={{ outline: '1px solid var(--gray300)' }}
+              style={{ outline: '1px solid var(--gray300)', backgroundColor: 'white' }}
               src={post?.createdBy?.photo ? `${imageBaseUrl}/${post?.createdBy?.photo}` : logo}
               size={50}
             ></Avatar>
 
             <div className='name-date'>
-              <h2 className='userName'>{post?.createdBy?.name}</h2>
+              <h3 className='userName'>{post?.createdBy?.name}</h3>
 
               <div className='timeaGo'>
                 {moment(post?.createdAt).isSame(moment(), 'day')
@@ -233,16 +196,35 @@ const Feed = () => {
                   : moment(post?.createdAt).format('DD MMM, YYYY')}
               </div>
             </div>
+          </div>
+          {likedAttachments.includes(post._id) ?
             <div>
               <AiFillLike
-                style={{ color: '#1890ff', cursor: 'pointer', marginLeft: 10 }}
-                onClick={onClick}
+                size={40}
+                style={{ color: '#1890ff', cursor: 'pointer', paddingRight: 10 }}
+                onClick={()=>{
+                  onClick();
+                  onLikeIconClick(post);
+                }}
               />
             </div>
-          </div>
+            :
+            <div>
+              <AiOutlineLike
+                size={40}
+                style={{ color: '#1890ff', cursor: 'pointer', paddingRight: 10 }}
+                onClick={()=>{
+                  onClick();
+                  onLikeIconClick(post);
+                }}
+              />
+            </div>
+          }
+
+
         </div>
 
-        <div className='card-content'>
+        <div className="card-content">
           {post?.type === 'photo' ? (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Image
@@ -322,7 +304,9 @@ const Feed = () => {
                 <div ref={loader} style={{ height: '20px' }} />
               </div>
             ) : (
+              <div className='leftFeedSection'>
               <NoFeeds />
+              </div>
             )}
           </>
         ) : (
@@ -336,7 +320,9 @@ const Feed = () => {
                 <div ref={popularPostsLoader} style={{ height: '20px' }} />
               </div>
             ) : (
-              <NoFeeds />
+              <div className="leftFeedSection">
+                <NoFeeds />
+              </div>
             )}
           </>
         )}

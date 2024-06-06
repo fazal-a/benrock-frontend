@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents, ZoomControl } from 'reac
 import { Modal, Button, Upload, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import L from 'leaflet'
-import defaultProfilePicUrl from '../../assets/logo.png'
+import defaultProfilePicUrl from '../../assets/logoWhiteBG.png';
 import { imageBaseUrl } from '../../config/constants'
 
 const LocationModal = ({ isOpen, onRequestClose, onLocationChange, onOk }) => {

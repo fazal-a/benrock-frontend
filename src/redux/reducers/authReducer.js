@@ -1,4 +1,4 @@
-import { LOGIN } from '../types/authTypes'
+import { LOGIN, TOGGLE_LIKE } from '../types/authTypes'
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -21,6 +21,19 @@ const AuthReducer = (state = initialState, action) => {
         socket: action?.payload,
       }
     }
+    case TOGGLE_LIKE: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          user: {
+            ...state.user.user,
+            likes: action?.payload
+          },
+        },
+      };
+    }
+
     default:
       return state
   }

@@ -44,7 +44,13 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  justify-content: space-between;
 
+}
+.Feed .leftFeedSection .card .card-header .avatar-name-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .Feed .leftFeedSection .card .card-header .name-date .cardDate {
@@ -53,6 +59,7 @@
 }
 
 .Feed .leftFeedSection .card .card-header .name-date .userName {
+  margin-bottom: 5px;
   color: var(--textColor);
 }
 
@@ -79,7 +86,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 40vw;
   height: 400px;
 }
 
