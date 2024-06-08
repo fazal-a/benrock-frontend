@@ -1,30 +1,41 @@
 import { useEffect, useState } from 'react'
-import { Form, Input, Button, Image, Checkbox, message } from 'antd'
+import { Form, Input, Button, Image, message } from 'antd'
 import { useDispatch } from 'react-redux'
-import { useNavigate, Navigate, Link } from 'react-router-dom'
-
+import { useNavigate, Link } from 'react-router-dom'
 import { authLogin } from '../redux'
-// import auditLogo from '../assets/social-media.png'
 import auditLogo from '../assets/logosidbar.png'
-
 import { getUserLocation } from '../constants/getCurrentLocation'
-import { duration } from 'moment'
-import { LOGIN } from '../redux/types/authTypes'
 import { fetchAddress } from '../constants/getAddress'
-// import { login } from '../services/auth'
+
+const defaultLatitude = '40.7128'
+const defaultLongitude = '-74.0060'
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [setLocation, setSetLocation] = useState(false)
-  const [latitude, setLatitude] = useState('40.7128')
-  const [longitude, setLongitude] = useState('-74.0060')
+  const [latitude, setLatitude] = useState(defaultLatitude)
+  const [longitude, setLongitude] = useState(defaultLongitude)
+  const [locationAccessGranted, setLocationAccessGranted] = useState(false)
+
+  useEffect(() => {
+    const askForLocation = async () => {
+      try {
+        const location = await getUserLocation()
+        setLatitude(location.latitude)
+        setLongitude(location.longitude)
+        setLocationAccessGranted(true)
+        console.log('Location access granted. Current location:', location)
+      } catch (error) {
+        setLocationAccessGranted(false)
+        console.error('Unable to retrieve location. Defaulting to NY City.', error)
+      }
+    }
+
+    askForLocation()
+  }, [])
 
   const onFinish = async (values) => {
-    console.log({ latitude, longitude })
-    const address = await fetchAddress(latitude, longitude)
-    console.log({ address })
     const val = {
       ...values,
       email: values?.email.toLowerCase(),
@@ -33,26 +44,10 @@ const SignIn = () => {
     }
     setLoading(true)
 
-    await dispatch(authLogin(val, navigate)), setLoading(false)
+    await dispatch(authLogin(val, navigate, locationAccessGranted))
+    setLoading(false)
   }
-  useEffect(() => {
-    const askForLocation = async () => {
-      try {
-        const location = await getUserLocation()
-        setLatitude(location.latitude)
-        setLongitude(location.longitude)
-        setSetLocation(true)
-      } catch (error) {
-        // message.error('Unable to retrieve location. Defaulting to NY City.');
-        setSetLocation(false)
-      }
-    }
 
-    askForLocation()
-  }, [])
-  // if (localStorage.getItem('token')) {
-  //   return <Navigate to='/' />
-  // } else {
   return (
     <div className='login'>
       <div className='login-heading'>
@@ -77,10 +72,7 @@ const SignIn = () => {
                   },
                 ]}
               >
-                <Input
-                  // autoComplete='off'
-                  placeholder='Email'
-                />
+                <Input placeholder='Email' />
               </Form.Item>
             </div>
             <div>
@@ -91,16 +83,13 @@ const SignIn = () => {
                 name='password'
                 rules={[
                   {
-                    type: 'password',
-                    message: 'required field',
+                    required: true,
+                    message: 'Password is required',
                   },
                 ]}
               >
                 <Input.Password placeholder='Password' />
               </Form.Item>
-              {/* <Checkbox checked={setLocation} onChange={handleLocationChange}>
-                Set Location
-              </Checkbox> */}
               <div className='d-flex justify-end'>
                 <p
                   className='pointer'
@@ -128,7 +117,6 @@ const SignIn = () => {
       </div>
     </div>
   )
-  // }
 }
 
 export default SignIn

@@ -15,7 +15,7 @@ import {
   Circle,
 } from 'react-leaflet'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/logoWhiteBG.png';
+import logo from '../assets/logoWhiteBG.png'
 import { imageBaseUrl } from '../config/constants'
 import Layout from '../layout/Layout'
 import { addReview, getALLusers, getReviews } from '../services/Reviews'
@@ -184,7 +184,7 @@ const Home = () => {
     if (!mapRef.current && influencers.length) {
       const map = L.map('map', {
         minZoom: 3,
-        maxZoom: 12,
+        maxZoom: 15,
         zoomControl: false,
         zoomAnimation: true,
         fadeAnimation: true,
@@ -196,16 +196,30 @@ const Home = () => {
 
       L.control.zoom({ position: 'bottomright' }).addTo(mapRef.current)
 
+      // uncomment to use the openstreetmap tiles
+      // use any one of given bellow tiles url
+
+      // L.tileLayer(
+      // 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      // 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
+      // 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+      // 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+      // 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
+      // 'https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png',
+      // {
+      //   attribution:
+      //     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      // },
+      // ).addTo(mapRef.current)
+
+      // given bellow sets the tiles from maptiler
+
       L.tileLayer(
-        // 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        // 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
-        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-        // 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-        // 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
-        // 'https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png',
+        'https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=LT6CVEhaYdmCqTrZfjnV',
         {
+          zoom: 50,
           attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
         },
       ).addTo(mapRef.current)
 

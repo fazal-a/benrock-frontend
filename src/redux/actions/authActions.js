@@ -27,7 +27,7 @@ export const authSignup = (payload, navigate) => {
   }
 }
 
-export const authLogin = (payload, navigate) => {
+export const authLogin = (payload, navigate, locationAccessGranted) => {
   return async (dispatch) => {
     try {
       const res = await publicAPI.post('/auth/login', payload)
@@ -46,7 +46,11 @@ export const authLogin = (payload, navigate) => {
         if (isEmailVerified) {
           localStorage.setItem('token', data?.token)
           localStorage.setItem('userId', data?.user?._id)
-          navigate('/')
+          if (locationAccessGranted) {
+            navigate('/')
+          } else {
+            navigate('/profile')
+          }
         } else {
           dispatch(authRequestToken(payload?.email))
           navigate('/verifyEmail', { state: { email: payload?.email } })
@@ -60,6 +64,7 @@ export const authLogin = (payload, navigate) => {
     }
   }
 }
+
 export const authRequestToken = (payload) => {
   return async () => {
     try {
@@ -152,28 +157,27 @@ export const authResetPassword = (payload, navigate) => {
   }
 }
 
-
 export const toggleLikeAction = (attachmentId) => {
   return async (dispatch, getState) => {
     try {
-      const { user } = getState().auth;
+      const { user } = getState().auth
 
-      const isLiked = user.user.likes.includes(attachmentId);
+      const isLiked = user.user.likes.includes(attachmentId)
       const updatedLikes = isLiked
-        ? user.user.likes.filter(id => id !== attachmentId)
-        : [...user.user.likes, attachmentId];
+        ? user.user.likes.filter((id) => id !== attachmentId)
+        : [...user.user.likes, attachmentId]
 
       // Update the user object in Redux store
       dispatch({
         type: TOGGLE_LIKE,
         payload: updatedLikes,
-      });
+      })
     } catch (err) {
-      console.error('Error toggling like status:', err);
+      console.error('Error toggling like status:', err)
       notification.error({
         message: 'Error toggling like status',
         duration: 3,
-      });
+      })
     }
-  };
-};
+  }
+}

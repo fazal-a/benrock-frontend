@@ -15,7 +15,7 @@ export const attachToken = async () => {
   // console.log("Token Attached");
 }
 
-export const imageBaseUrl = 'https://social-app-project.s3.us-east-005.backblazeb2.com'
+export const imageBaseUrl = 'https://benrock.s3.us-west-002.backblazeb2.com'
 export const AblyAPIKey = 'YDKSJA.880uXg:q-lpTmRiQFpDWWc15BjTtBllcFgh10sJHbgNQXumNH8'
 export const clientId = localStorage.getItem('token')
 console.log({ clientId })
